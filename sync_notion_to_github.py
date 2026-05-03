@@ -162,7 +162,7 @@ def blocks_to_markdown(blocks, depth=0):
         if btype == "toggle":
             lines.append(f"{indent}</details>")
 
-    return "\n".join(lines)
+    return "\n\n".join(line for line in lines if line is not None)
 
 # ── Build Markdown for one day's entry ───────────────────────────────────────
 
@@ -272,7 +272,7 @@ def build_readme(pushed_entries):
     lines = [
         "# 🧠 #1000DaysOfLearning",
         "",
-        "Daily learning log synced automatically from Notion every week.",
+        "Daily learning log synced automatically from Notion everyday.",
         "",
         "| Day | Date | Log |",
         "|-----|------|-----|",
