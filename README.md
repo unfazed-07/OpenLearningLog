@@ -103,7 +103,7 @@ Consistency is easy to claim, hard to prove. Having every day's log version-cont
 
 ## 📌 Related
 
-- [#1000DaysOfLearning on LinkedIn](https://www.linkedin.com/in/YOUR_PROFILE) — daily posts from this same journey
+- [#1000DaysOfLearning on LinkedIn](https://www.linkedin.com/in/divyansh-sharma-5546b3223/) — daily posts from this same journey
 - Part of my broader goal of building in public while learning Data Science and ML
 
 ---
