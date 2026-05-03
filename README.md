@@ -1,6 +1,6 @@
 # 🧠 #1000DaysOfLearning
 
-Daily learning log synced automatically from Notion every week.
+Daily learning log synced automatically from Notion every day.
 
 | Day | Date | Log |
 |-----|------|-----|
