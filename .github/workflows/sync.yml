@@ -2,8 +2,8 @@ name: Sync Notion → GitHub (Weekly)
 
 on:
   schedule:
-    # Every Sunday at 11:30 PM IST = Sunday 18:00 UTC
-    - cron: "0 18 * * 0"
+    # Everyday at 4 AM IST = Sunday 10:30 PM UTC
+    - cron: "30 22 * * *"
 
   # Also lets you trigger manually from GitHub Actions tab
   workflow_dispatch:
