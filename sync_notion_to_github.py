@@ -264,25 +264,25 @@ def push_file_to_github(filepath, content_str, commit_message):
 
 # ── Generate README index ─────────────────────────────────────────────────────
 
-def build_readme(pushed_entries):
-    """
-    Build a README.md that lists all pushed day files as a table.
-    pushed_entries: list of (title, date_iso, filepath)
-    """
-    lines = [
-        "# 🧠 #1000DaysOfLearning",
-        "",
-        "Daily learning log synced automatically from Notion everyday.",
-        "",
-        "| Day | Date | Log |",
-        "|-----|------|-----|",
-    ]
-    for title, date_iso, filepath in sorted(pushed_entries, key=lambda x: x[1]):
-        lines.append(f"| {title} | {date_iso} | [View]({filepath}) |")
+# def build_readme(pushed_entries):
+#     """
+#     Build a README.md that lists all pushed day files as a table.
+#     pushed_entries: list of (title, date_iso, filepath)
+#     """
+#     lines = [
+#         "# 🧠 #1000DaysOfLearning",
+#         "",
+#         "Daily learning log synced automatically from Notion everyday.",
+#         "",
+#         "| Day | Date | Log |",
+#         "|-----|------|-----|",
+#     ]
+#     for title, date_iso, filepath in sorted(pushed_entries, key=lambda x: x[1]):
+#         lines.append(f"| {title} | {date_iso} | [View]({filepath}) |")
 
-    lines.append("")
-    lines.append(f"*Last synced: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M')} UTC*")
-    return "\n".join(lines)
+#     lines.append("")
+#     lines.append(f"*Last synced: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M')} UTC*")
+#     return "\n".join(lines)
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
@@ -322,12 +322,12 @@ def main():
             print(f"  ❌ Error on page {page['id']}: {e}")
 
     # Push updated README
-    if pushed_entries:
-        print("\n📋 Updating README.md index...")
-        readme_md = build_readme(pushed_entries)
-        push_file_to_github("README.md", readme_md, "sync: update README index")
+    # if pushed_entries:
+    #     print("\n📋 Updating README.md index...")
+    #     readme_md = build_readme(pushed_entries)
+    #     push_file_to_github("README.md", readme_md, "sync: update README index")
 
-    print(f"\n🎉 Done. {len(pushed_entries)} file(s) synced.")
+    # print(f"\n🎉 Done. {len(pushed_entries)} file(s) synced.")
 
 if __name__ == "__main__":
     main()
