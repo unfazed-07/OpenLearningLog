@@ -244,22 +244,31 @@ def get_existing_sha(filepath):
     return None
 
 def push_file_to_github(filepath, content_str, commit_message):
-    """Create or update a file in the GitHub repo."""
+    """Create or update a file in the GitHub repo — skips if content unchanged."""
     url     = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{filepath}"
     encoded = base64.b64encode(content_str.encode("utf-8")).decode("utf-8")
-    sha     = get_existing_sha(filepath)
 
-    payload = {
-        "message": commit_message,
-        "content": encoded,
-        "branch":  GITHUB_BRANCH,
-    }
-    if sha:
-        payload["sha"] = sha   # required for updates
+    # Check existing file
+    resp = requests.get(url, headers=GITHUB_HEADERS, params={"ref": GITHUB_BRANCH})
+    
+    if resp.status_code == 200:
+        existing = resp.json()
+        sha = existing.get("sha")
+        existing_content = existing.get("content", "").replace("\n", "")
+        
+        # ✅ Skip if content is identical
+        if existing_content == encoded:
+            print(f"  ⏭️  Skipped (no changes): {filepath}")
+            return
+        
+        payload = {"message": commit_message, "content": encoded, "branch": GITHUB_BRANCH, "sha": sha}
+        action = "Updated"
+    else:
+        payload = {"message": commit_message, "content": encoded, "branch": GITHUB_BRANCH}
+        action = "Created"
 
     resp = requests.put(url, headers=GITHUB_HEADERS, json=payload)
     resp.raise_for_status()
-    action = "Updated" if sha else "Created"
     print(f"  ✅ {action}: {filepath}")
 
 # ── Generate README index ─────────────────────────────────────────────────────
