@@ -1,12 +1,11 @@
-# 🧠 #1000DaysOfLearning — Public Learning Log
-
+# 🧠 #OpenLearning — Public Learning Log
 A fully automated system that syncs my daily learning logs from Notion to GitHub — every day at 4 AM IST, without me touching a single thing.
 
 ---
 
 ## Why I Built This
 
-I started #1000DaysOfLearning to document my journey from a first-year CS student to someone who can actually build things in Data Science and ML.
+I started #OpenLearning to document my journey from a first-year CS student to someone who can actually build things in Data Science and ML.
 
 But there was a problem — my logs lived in Notion, private and invisible. Nobody could see the work. And in tech, if it's not on GitHub, it didn't happen.
 
@@ -28,9 +27,7 @@ Each day becomes its own Markdown file in the `logs/` folder.
 ---
 
 ## Repo Structure
-
-```
-1000-days-of-learning/
+OpenLearningLog/
 │
 ├── logs/
 │   ├── day-044-2026-05-03.md
@@ -42,25 +39,21 @@ Each day becomes its own Markdown file in the `logs/` folder.
 │   └── workflows/
 │       └── sync.yml           ← GitHub Actions schedule
 └── README.md
-```
 
 ---
 
 ## How the Automation Works
-
-```
 Every day at 4 AM IST
-        ↓
+↓
 GitHub Actions triggers the Python script
-        ↓
+↓
 Script queries Notion API for yesterday's entry
-        ↓
+↓
 Fetches the full page — table properties + body content
-        ↓
+↓
 Converts blocks to Markdown (bullets, headings, links, code)
-        ↓
+↓
 Pushes a new .md file to this repo via GitHub API
-```
 
 No server. No paid tools. Just GitHub Actions running on a cron schedule for free.
 
