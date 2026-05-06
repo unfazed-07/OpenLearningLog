@@ -244,23 +244,28 @@ def get_existing_sha(filepath):
     return None
 
 def push_file_to_github(filepath, content_str, commit_message):
-    """Create or update a file in the GitHub repo — skips if content unchanged."""
     url     = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{filepath}"
     encoded = base64.b64encode(content_str.encode("utf-8")).decode("utf-8")
 
-    # Check existing file
     resp = requests.get(url, headers=GITHUB_HEADERS, params={"ref": GITHUB_BRANCH})
-    
+
     if resp.status_code == 200:
         existing = resp.json()
         sha = existing.get("sha")
-        existing_content = existing.get("content", "").replace("\n", "")
-        
-        # ✅ Skip if content is identical
-        if existing_content == encoded:
+        existing_b64 = existing.get("content", "").replace("\n", "")
+        existing_str = base64.b64decode(existing_b64).decode("utf-8")
+
+        # Strip the auto-generated timestamp before comparing
+        def strip_timestamp(text):
+            return "\n".join(
+                line for line in text.splitlines()
+                if not line.startswith("*Synced automatically")
+            )
+
+        if strip_timestamp(existing_str) == strip_timestamp(content_str):
             print(f"  ⏭️  Skipped (no changes): {filepath}")
             return
-        
+
         payload = {"message": commit_message, "content": encoded, "branch": GITHUB_BRANCH, "sha": sha}
         action = "Updated"
     else:
